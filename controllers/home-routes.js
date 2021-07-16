@@ -14,7 +14,17 @@ router.get('/', async (req, res) => {
         blog.get({ plain: true })
     );
     console.log(blogs)
-    res.render('homepage', {blogs});
+    res.render('homepage', { blogs });
+})
+
+router.get('/login', (req, res) => {
+    router.get('/login', (req, res) => {
+        if (req.session.loggedIn) {
+            res.redirect('/');
+            return;
+        }
+        res.render('login');
+    });
 })
 
 module.exports = router;
