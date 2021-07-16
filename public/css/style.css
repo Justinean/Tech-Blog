@@ -2,14 +2,17 @@ body {
     background-color: #bad8bf;
 }
 
-a {
+a, #logout {
     text-decoration: none;
     color: #bad8bf;
+    background-color: #312727;
+    border: 0px;
 }
 
-a:hover {
+a:hover, #logout:hover {
     text-decoration: none;
     color: #bad8bf;
+    cursor: pointer;
 }
 
 nav {
@@ -43,6 +46,7 @@ div {
     margin-left: 25%;
     margin-top: 20px;
     border: 5px solid #312727;
+    border-radius: 5px;
 }
 
 div header h2 {
@@ -67,4 +71,55 @@ div header {
 .content {
     font-size: 23px;
     padding: 10px;
+}
+
+#login p {
+    padding-left: 0px;
+    padding-bottom: 0px;
+}
+
+div input {
+    width: 100%;
+    height: 30px;
+}
+
+#form {
+    min-width: 90%;
+    max-width: 90%;
+    border: 0px;
+    margin: 0px;
+    width: fit-content;
+    margin-bottom: 20px;
+    margin-left: 5%;
+}
+
+#buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 0px;
+    margin: 0px;
+}
+
+#buttons button {
+    margin: 0px;
+}
+
+#other {
+    font-size: 25px;
+    padding: 0px;
+    border: 0px;
+    margin-top: 15px;
+    background-color: #bad8bf;
+    color: #312727;
+}
+
+#other:hover {
+    cursor: pointer;
+}
+
+#loginBtn {
+    border-radius: 5px;
+    padding: 6px;
+    background-color: #312727;
 }

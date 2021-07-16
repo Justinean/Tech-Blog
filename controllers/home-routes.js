@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         blog.get({ plain: true })
     );
     console.log(blogs)
-    res.render('homepage', { blogs });
+    res.render('homepage', { blogs, session: req.session });
 })
 
 router.get('/login', (req, res) => {
@@ -24,4 +24,9 @@ router.get('/login', (req, res) => {
     }
     res.render('login');
 });
+
+router.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
 module.exports = router;
