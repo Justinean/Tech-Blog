@@ -35,6 +35,10 @@ router.get('/dashboard/:user', withAuth, async (req, res) => {
     res.render('dashboard', { blogs, session: req.session });
 })
 
+router.get('/dashboard/:user/new', withAuth, async (req, res) => {
+    res.render('newblog', {session: req.session})
+})
+
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/');

@@ -7,4 +7,15 @@
     {{/each}}
 </section>
 
+<button id="newpost"><span id="plus">+</span> New Post</button>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let postBtn = $("#newpost");
+
+    newpost = () => {
+        window.location.href = `/dashboard/${sessionStorage.getItem("user")}/new`
+    }
+
+    postBtn.on("click", newpost)
+</script>

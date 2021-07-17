@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Blog } = require('../../models');
 
 router.post('/', async (req, res) => {
     try {
@@ -65,5 +65,20 @@ router.post('/logout', (req, res) => {
         res.status(404).end();
     }
 });
+
+router.post('/dashboard/:user/new', async (req, res) => {
+    let name = req.body.name;
+    let content = req.body.content;
+    let user = req.params.user;
+    console.log(name, content, user)
+    const userId = await User.findOne({where: {name: user}})
+    console.log(userId)
+    const blog = await Blog.create({
+        name,
+        content,
+        user_id: userId.id
+    })
+    console.log(blog)
+})
 
 module.exports = router;

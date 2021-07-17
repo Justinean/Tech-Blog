@@ -2,14 +2,14 @@ body {
     background-color: #bad8bf;
 }
 
-a, #logout, #dashboard {
+a, #logout, #dashboard, #newpost, button {
     text-decoration: none;
     color: #bad8bf;
     background-color: #312727;
     border: 0px;
 }
 
-a:hover, #logout:hover, #dashboard:hover {
+a:hover, #logout:hover, #dashboard:hover, #newpost:hover, button {
     text-decoration: none;
     color: #bad8bf;
     cursor: pointer;
@@ -122,4 +122,31 @@ div input {
     border-radius: 5px;
     padding: 6px;
     background-color: #312727;
+}
+
+#newpost {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    width: 16%;
+    height: 50px;
+    margin-left: 42%;
+    margin-top: 10%;
+}
+
+#plus {
+    left: 0px;
+    font-size: 40px;
+}
+
+.newpoststuff {
+    width: 100%;
+    height: 50px;
+    font-size: 30px;
+}
+
+#submit {
+    width: 100%;
+    height: 40px;
+    margin: 0px;
 }
