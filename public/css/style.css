@@ -2,14 +2,14 @@ body {
     background-color: #bad8bf;
 }
 
-a, #logout {
+a, #logout, #dashboard {
     text-decoration: none;
     color: #bad8bf;
     background-color: #312727;
     border: 0px;
 }
 
-a:hover, #logout:hover {
+a:hover, #logout:hover, #dashboard:hover {
     text-decoration: none;
     color: #bad8bf;
     cursor: pointer;

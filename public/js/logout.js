@@ -1,6 +1,4 @@
 let logoutBtn = $("#logout");
-console.log("pog");
-console.log(logoutBtn);
 
 logout = async () => {
   console.log("pog")
@@ -8,7 +6,8 @@ logout = async () => {
   
   if (response.status === 204) {
     alert("Logout successful!")
-    window.location.reload();
+    sessionStorage.clear("user");
+    window.location.href = "/";
   } else {
     alert("Could not log you out, try again.")
   }

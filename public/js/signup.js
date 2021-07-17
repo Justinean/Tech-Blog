@@ -11,7 +11,11 @@ signUp = async event => {
         body: JSON.stringify({username, email, password})
     })
     data = await response.json();
-    console.log(data);
+    if (data.id === undefined) {
+        alert("Invalid information, please try again.")
+    } else {
+        window.location.href = "/"
+    }
 }
 
 signupBtn.on("click", signUp);
