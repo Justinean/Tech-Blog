@@ -1,7 +1,6 @@
 let logoutBtn = $("#logout");
 
 logout = async () => {
-  console.log("pog")
   response = await fetch("/api/users/logout", {method: "POST"})
   
   if (response.status === 204) {

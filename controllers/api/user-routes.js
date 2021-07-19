@@ -86,7 +86,6 @@ router.post('/dashboard/new', async (req, res) => {
 
 router.put('/dashboard/edit/:id', async (req, res) => {
     let blogId = req.params.id;
-    console.log(blogId)
     const blog = await Blog.findByPk(blogId);
     const beforeBlog = await Blog.findByPk(blogId);
     blog.name = req.body.title;
