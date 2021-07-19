@@ -35,8 +35,13 @@ router.get('/dashboard', withAuth, async (req, res) => {
     res.render('dashboard', { blogs, session: req.session });
 })
 
-router.get('/dashboard/new', withAuth, async (req, res) => {
-    res.render('newblog', {session: req.session})
+router.get('/dashboard/new', withAuth, (req, res) => {
+    res.render('newblog', {session: req.session});
+})
+
+router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
+    let blog = await Blog.findByPk(req.params.id)
+    res.render('editblog', {blog: blog.get({plain: true}), session: req.session});
 })
 
 router.get('/login', (req, res) => {

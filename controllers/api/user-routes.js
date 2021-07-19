@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
         req.session.save(() => {
             req.session.loggedIn = true;
             req.session.name = req.body.username;
-            
+
             res.status(200).json(dbUserData);
         });
     } catch (err) {
@@ -70,15 +70,33 @@ router.post('/logout', (req, res) => {
 router.post('/dashboard/new', async (req, res) => {
     let name = req.body.name;
     let content = req.body.content;
-    let user = req.session.user;
-    console.log(name, content, user)
+    let user = req.session.name;
     const userId = await User.findOne({where: {name: user}})
-    console.log(userId)
-    await Blog.create({
+    const blog = await Blog.create({
         name,
         content,
         user_id: userId.id
     })
+    if (blog) {
+        res.status(200).json({message: 'Post created!'})
+    } else {
+        res.status(400).json({message: "Post couldn't be created."})
+    }
+})
+
+router.put('/dashboard/edit/:id', async (req, res) => {
+    let blogId = req.params.id;
+    console.log(blogId)
+    const blog = await Blog.findByPk(blogId);
+    const beforeBlog = await Blog.findByPk(blogId);
+    blog.name = req.body.title;
+    blog.content = req.body.content;
+    await blog.save();
+    if (blog.name !== beforeBlog.name || blog.content !== beforeBlog.content) {
+        res.status(200).json({message: 'Post updated!'})
+    } else {
+        res.status(400).json({message: "Post couldn't be updated."})
+    }
 })
 
 module.exports = router;
