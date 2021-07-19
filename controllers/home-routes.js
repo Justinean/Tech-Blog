@@ -11,9 +11,11 @@ router.get('/', async (req, res) => {
             },
         ]
     });
-    blogs = blogs.map((blog) =>
-        blog.get({ plain: true })
-    );
+    blogs = blogs.map((blog) => {
+        blog = blog.get({plain: true});
+        blog.user.name = blog.user.name[0].toUpperCase() + blog.user.name.slice(1);
+        return blog;
+    });
     res.render('homepage', { blogs, session: req.session });
 })
 
@@ -29,9 +31,11 @@ router.get('/dashboard', withAuth, async (req, res) => {
         ],
         where: {user_id: userData.id}
     });
-    blogs = blogs.map((blog) =>
-        blog.get({ plain: true })
-    );
+    blogs = blogs.map((blog) => {
+        blog = blog.get({plain: true});
+        blog.user.name = blog.user.name[0].toUpperCase() + blog.user.name.slice(1);
+        return blog;
+    });
     res.render('dashboard', { blogs, session: req.session });
 })
 
@@ -63,11 +67,15 @@ router.get('/blog/:id', async (req, res) => {
         ]
     });
     
-    comments = comments.map((comment) =>
-        comment.get({ plain: true })
-    );
+    comments = comments.map((comment) => {
+        comment = comment.get({ plain: true });
+        comment.user.name = comment.user.name[0].toUpperCase() + comment.user.name.slice(1);
+        return comment;
+    });
     console.log(comments)
-    res.render('blog', {blog: blog.get({plain: true}), comments, session: req.session});
+    blog = blog.get({plain: true})
+    blog.user.name = blog.user.name[0].toUpperCase() + blog.user.name.slice(1);
+    res.render('blog', {blog, comments, session: req.session});
 })
 
 router.get('/login', (req, res) => {

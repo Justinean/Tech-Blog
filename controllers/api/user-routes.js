@@ -1,17 +1,22 @@
 const router = require('express').Router();
 const { User, Blog, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
+
+router.get('/getuser', withAuth, async (req, res) => {
+    res.status(200).json({user: req.session.name})
+})
 
 router.post('/', async (req, res) => {
     try {
-        const user = await User.findOne({where: {name: req.body.username}})
+        const user = await User.findOne({where: {name: req.body.username.toLowerCase()}})
         if (!user) {
             const dbUserData = await User.create({
-                name: req.body.username,
+                name: req.body.username.toLowerCase(),
                 password: req.body.password,
             });
             req.session.save(() => {
                 req.session.loggedIn = true;
-                req.session.name = req.body.username;
+                req.session.name = req.body.username.toLowerCase();
     
                 res.status(200).json(dbUserData);
             });
@@ -29,7 +34,7 @@ router.post('/login', async (req, res) => {
     try {
         const dbUserData = await User.findOne({
             where: {
-                name: req.body.username,
+                name: req.body.username.toLowerCase(),
             },
         });
 
@@ -51,7 +56,7 @@ router.post('/login', async (req, res) => {
 
         req.session.save(() => {
             req.session.loggedIn = true;
-            req.session.name = req.body.username;
+            req.session.name = req.body.username.toLowerCase();
 
             res
                 .status(200)
@@ -123,14 +128,12 @@ router.put('/dashboard/edit/:id', async (req, res) => {
 router.delete('/dashboard/delete/:id', async (req, res) => {
     let blogId = req.params.id;
     const blog = await Blog.findByPk(blogId);
-    console.log(blog)
     await blog.destroy();
     updatedBlog = await Blog.findByPk(blogId);
-    console.log(updatedBlog)
     if (updatedBlog === null) {
         res.status(200).json({message: 'Post deleted!'})
     } else {
-        res.status(200).json({message: "Post couldn't be deleted."})
+        res.status(400).json({message: "Post couldn't be deleted."})
     }
 })
 
