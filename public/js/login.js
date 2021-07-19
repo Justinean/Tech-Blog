@@ -11,7 +11,6 @@ signUp = async event => {
     })
     data = await response.json();
     if (data.message[0] === "Y") {
-      sessionStorage.setItem("user", data.user.name);
       window.location.href = "/";
     } else {
       alert(data.message);

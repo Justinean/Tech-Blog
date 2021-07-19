@@ -6,7 +6,6 @@ logout = async () => {
   
   if (response.status === 204) {
     alert("Logout successful!")
-    sessionStorage.clear("user");
     window.location.href = "/";
   } else {
     alert("Could not log you out, try again.")

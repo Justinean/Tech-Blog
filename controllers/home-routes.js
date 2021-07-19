@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/dashboard', withAuth, async (req, res) => {
-    const user = req.session.user;
+    const user = req.session.name;
     const userData = await User.findOne({where: {name: user}})
     let blogs = await Blog.findAll({
         include: [
