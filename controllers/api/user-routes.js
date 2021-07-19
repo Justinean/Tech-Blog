@@ -5,12 +5,12 @@ router.post('/', async (req, res) => {
     try {
         const dbUserData = await User.create({
             name: req.body.username,
-            email: req.body.email,
             password: req.body.password,
         });
         req.session.save(() => {
             req.session.loggedIn = true;
-
+            req.session.name = req.body.username;
+            
             res.status(200).json(dbUserData);
         });
     } catch (err) {
@@ -23,14 +23,14 @@ router.post('/login', async (req, res) => {
     try {
         const dbUserData = await User.findOne({
             where: {
-                email: req.body.email,
+                name: req.body.username,
             },
         });
 
         if (!dbUserData) {
             res
                 .status(400)
-                .json({ message: 'Incorrect email or password. Please try again!' });
+                .json({ message: 'Incorrect username or password. Please try again!' });
             return;
         }
 
@@ -39,12 +39,13 @@ router.post('/login', async (req, res) => {
         if (!validPassword) {
             res
                 .status(400)
-                .json({ message: 'Incorrect email or password. Please try again!' });
+                .json({ message: 'Incorrect username or password. Please try again!' });
             return;
         }
 
         req.session.save(() => {
             req.session.loggedIn = true;
+            req.session.name = req.body.username;
 
             res
                 .status(200)
@@ -66,19 +67,18 @@ router.post('/logout', (req, res) => {
     }
 });
 
-router.post('/dashboard/:user/new', async (req, res) => {
+router.post('/dashboard/new', async (req, res) => {
     let name = req.body.name;
     let content = req.body.content;
-    let user = req.params.user;
+    let user = req.session.user;
     console.log(name, content, user)
     const userId = await User.findOne({where: {name: user}})
     console.log(userId)
-    const blog = await Blog.create({
+    await Blog.create({
         name,
         content,
         user_id: userId.id
     })
-    console.log(blog)
 })
 
 module.exports = router;

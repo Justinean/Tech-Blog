@@ -17,8 +17,8 @@ router.get('/', async (req, res) => {
     res.render('homepage', { blogs, session: req.session });
 })
 
-router.get('/dashboard/:user', withAuth, async (req, res) => {
-    const user = req.params.user;
+router.get('/dashboard', withAuth, async (req, res) => {
+    const user = req.session.user;
     const userData = await User.findOne({where: {name: user}})
     let blogs = await Blog.findAll({
         include: [
@@ -35,7 +35,7 @@ router.get('/dashboard/:user', withAuth, async (req, res) => {
     res.render('dashboard', { blogs, session: req.session });
 })
 
-router.get('/dashboard/:user/new', withAuth, async (req, res) => {
+router.get('/dashboard/new', withAuth, async (req, res) => {
     res.render('newblog', {session: req.session})
 })
 
