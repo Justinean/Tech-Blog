@@ -114,4 +114,18 @@ router.put('/dashboard/edit/:id', async (req, res) => {
     }
 })
 
+router.delete('/dashboard/delete/:id', async (req, res) => {
+    let blogId = req.params.id;
+    const blog = await Blog.findByPk(blogId);
+    console.log(blog)
+    await blog.destroy();
+    updatedBlog = await Blog.findByPk(blogId);
+    console.log(updatedBlog)
+    if (updatedBlog === null) {
+        res.status(200).json({message: 'Post deleted!'})
+    } else {
+        res.status(200).json({message: "Post couldn't be deleted."})
+    }
+})
+
 module.exports = router;

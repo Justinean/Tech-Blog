@@ -1,4 +1,5 @@
 let submitBtn = $("#submit");
+let deleteBtn = $("#delete");
 
 submitform = async event => {
     let object = $(event.target)
@@ -16,4 +17,17 @@ submitform = async event => {
     }
 }
 
-submitBtn.on("click", submitform)
+deleteform = async event => {
+    let object = $(event.target)
+    let response = await fetch(`/api/users/dashboard/delete/${window.location.href.split("/")[window.location.href.split("/").length - 1]}`, {
+        method: "DELETE",
+    })
+    let data = await response.json()
+    alert(data.message)
+    if (response.status === 200) {
+        window.location.href = "/dashboard";
+    }
+}
+
+deleteBtn.on("click", deleteform);
+submitBtn.on("click", submitform);
