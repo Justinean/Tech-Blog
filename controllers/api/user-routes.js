@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Blog } = require('../../models');
+const { User, Blog, Comment } = require('../../models');
 
 router.post('/', async (req, res) => {
     try {
@@ -81,6 +81,22 @@ router.post('/dashboard/new', async (req, res) => {
         res.status(200).json({message: 'Post created!'})
     } else {
         res.status(400).json({message: "Post couldn't be created."})
+    }
+})
+
+router.post('/comment', async (req, res) => {
+    let user = req.session.name;
+    let content = req.body.content;
+    const userId = await User.findOne({where: {name: user}})
+    const comment = await Comment.create({
+        content,
+        user_id: userId.id,
+        blog_id: req.body.blog
+    })
+    if (comment) {
+        res.status(200).json({message: 'Comment created!'})
+    } else {
+        res.status(400).json({message: "Comment couldn't be created."})
     }
 })
 

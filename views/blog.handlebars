@@ -1,0 +1,30 @@
+<h1>The Tech Blog</h1>
+</nav>
+
+<div>
+    <header>
+        <h2>{{blog.name}}</h2>
+        <p>Posted by {{blog.user.name}} on {{format_date blog.date_created}}</p>
+    </header>
+    <p class="content">{{blog.content}}</p>
+</div>
+
+<section>
+    {{#each comments as |comment|}}
+    {{> blog-details}}
+    {{/each}}
+</section>
+
+{{#if session.loggedIn}}
+<div>
+    <header></header>
+    <div id="form">
+        <p class="content">Comment</p>
+        <textarea style="height: 100px; font-size: 20px; width: 100%; margin-left: "></textarea>
+        <button id="submit">Submit</button>
+    </div>
+</div>
+{{/if}}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/comment.js"></script>

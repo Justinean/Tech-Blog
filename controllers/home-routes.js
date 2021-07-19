@@ -44,6 +44,32 @@ router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
     res.render('editblog', {blog: blog.get({plain: true}), session: req.session});
 })
 
+router.get('/blog/:id', async (req, res) => {
+    let blog = await Blog.findByPk(req.params.id, {
+        include: [
+            {
+                model: User,
+                attributes: ['name']
+            },
+        ]
+    })
+    let comments = await Comment.findAll({
+        where: {blog_id: blog.id},
+        include: [
+            {
+                model: User,
+                attributes: ['name']
+            },
+        ]
+    });
+    
+    comments = comments.map((comment) =>
+        comment.get({ plain: true })
+    );
+    console.log(comments)
+    res.render('blog', {blog: blog.get({plain: true}), comments, session: req.session});
+})
+
 router.get('/login', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/');
