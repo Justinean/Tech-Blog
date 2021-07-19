@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const { User, Blog, Comment } = require('../../models');
-const withAuth = require('../../utils/auth');
 
-router.get('/getuser', withAuth, async (req, res) => {
+router.get('/getuser', async (req, res) => {
     res.status(200).json({user: req.session.name})
 })
 
