@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 let signupBtn = $("#loginBtn");
 
 signUp = async event => {
@@ -10,10 +12,12 @@ signUp = async event => {
         body: JSON.stringify({username, password})
     })
     data = await response.json();
-    if (data.id === undefined) {
-        alert("Invalid information, please try again.")
+    if (response.status === 200) {
+        window.location.href = "/";
+    } else if (response.status === 400) {
+        alert("Username already exists!");
     } else {
-        window.location.href = "/"
+        alert("Could not create account!");
     }
 }
 

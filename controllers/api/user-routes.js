@@ -3,16 +3,22 @@ const { User, Blog, Comment } = require('../../models');
 
 router.post('/', async (req, res) => {
     try {
-        const dbUserData = await User.create({
-            name: req.body.username,
-            password: req.body.password,
-        });
-        req.session.save(() => {
-            req.session.loggedIn = true;
-            req.session.name = req.body.username;
-
-            res.status(200).json(dbUserData);
-        });
+        const user = await User.findOne({where: {name: req.body.username}})
+        if (!user) {
+            const dbUserData = await User.create({
+                name: req.body.username,
+                password: req.body.password,
+            });
+            req.session.save(() => {
+                req.session.loggedIn = true;
+                req.session.name = req.body.username;
+    
+                res.status(200).json(dbUserData);
+            });
+        } else {
+            res.status(400).json({message: "Username already exists!"})
+        }
+        
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
