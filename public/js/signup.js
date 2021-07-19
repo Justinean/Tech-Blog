@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 let signupBtn = $("#loginBtn");
 
 signUp = async event => {
