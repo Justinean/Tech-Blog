@@ -25,7 +25,7 @@ Click [here](https://tech-blog-appli.herokuapp.com/) and create an account so yo
 ![Picture of the application's homepage](./images/homepage.PNG)
 
 
-![Picture of the application's user dashboard](./images/homepage.PNG)
+![Picture of the application's user dashboard](./images/dashboard.png)
 
 # License:
 
