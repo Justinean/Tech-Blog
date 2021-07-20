@@ -45,7 +45,17 @@ router.get('/dashboard/new', withAuth, (req, res) => {
 
 router.get('/dashboard/edit/:id', withAuth, async (req, res) => {
     let blog = await Blog.findByPk(req.params.id)
-    res.render('editblog', {blog: blog.get({plain: true}), session: req.session});
+    const user = await User.findOne({where: {name: req.session.name}})
+    if (blog) {
+        if (user.id === blog.user_id) {
+            res.render('editblog', {blog: blog.get({plain: true}), session: req.session});
+        } else {
+            res.redirect('/');
+        }
+    } else {
+        res.redirect('/');
+    }
+    
 })
 
 router.get('/blog/:id', async (req, res) => {
