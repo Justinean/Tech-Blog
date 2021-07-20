@@ -22,6 +22,11 @@ It is a web application where you can read posts from other users and create pos
 
 Click [here](https://tech-blog-appli.herokuapp.com/) and create an account so you can comment and create posts.
 
+![Picture of the application's homepage](./images/homepage.PNG)
+
+
+![Picture of the application's user dashboard](./images/homepage.PNG)
+
 # License:
 
 This project is licensed under the MIT license, which you can read about [here](https://opensource.org/licenses/MIT).

@@ -17,7 +17,7 @@ signUp = async event => {
     }
     let validUser = checkValue(regEx, username, err)
     regEx = /^[0-9a-zA-Z/,.!@#$%^&*()_+-=]+$/
-    err = 'Password must be alphanumeric with only these symbols "/.!@#$%^&*()_+-="'
+    err = 'Password must be alphanumeric with only these symbols ".!@#$%^&*()_+-="'
     let validPass = checkValue(regEx, password, err)
     if (validPass && validUser) {
         response = await fetch('/api/users', {
