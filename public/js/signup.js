@@ -17,7 +17,6 @@ signUp = async event => {
     }
     let validUser = checkValue(regEx, username, err)
     regEx = /^[0-9a-zA-Z/,.!@#$%^&*()_+-=]+$/
-    console.log(regEx)
     err = 'Password must be alphanumeric with only these symbols "/.!@#$%^&*()_+-="'
     let validPass = checkValue(regEx, password, err)
     if (validPass && validUser) {
